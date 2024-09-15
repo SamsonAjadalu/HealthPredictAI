@@ -4,8 +4,8 @@ from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.linear_model import LogisticRegression
 
 # Load datasets and preprocess
-df_diabetes = pd.read_csv('diabetes.csv')
-df_heart = pd.read_csv('processed.cleveland.data', header=None, names=[
+df_diabetes = pd.read_csv('data/diabetes.csv')
+df_heart = pd.read_csv('data/processed.cleveland.data', header=None, names=[
     'age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal',
     'num'
 ])
