@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Health Prediction App</title>
+</head>
+<body>
+
+<div class="container py-5">
+    <h1 class="text-center">Health Prediction App</h1>
+
+    <!-- Dropdown for selecting prediction type -->
+    <div class="mb-3">
+        <label for="prediction_type" class="form-label">Select Prediction Type</label>
+        <select class="form-select" id="prediction_type" onchange="showForm()">
+            <option value="">--Select--</option>
+            <option value="heart">Heart Disease</option>
+            <option value="diabetes">Diabetes</option>
+        </select>
+    </div>
+
+    <!-- Heart Disease Form -->
+    <div id="heart_form" style="display: none;">
+        <h2>Heart Disease Prediction</h2>
+        <form id="heart-disease-form">
+            <input type="hidden" name="prediction_type" value="heart">
+
+            <!-- Age -->
+            <div class="mb-3">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" name="age" required>
+            </div>
+
+            <!-- Sex Dropdown -->
+            <div class="mb-3">
+                <label for="sex">Sex: What is your gender?</label>
+                <select class="form-select" name="sex" required>
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                </select>
+            </div>
+
+            <!-- Chest Pain Type -->
+            <div class="mb-3">
+                <label for="cp">Chest Pain Type</label>
+                <select class="form-select" name="cp" required>
+                    <option value="0">Typical Angina (Chest pain related to heart)</option>
+                    <option value="1">Atypical Angina (Chest pain not typically related to heart)</option>
+                    <option value="2">Non-Anginal Pain (Chest pain not related to heart issues)</option>
+                    <option value="3">No Chest Pain</option>
+                </select>
+                <small class="form-text text-muted">Select the type of chest pain you've experienced. If unsure, consult your doctor.</small>
+            </div>
+
+
+            <!-- Cholesterol -->
+            <div class="mb-3">
+                <label for="chol">Cholesterol Level (mg/dl)</label>
+                <input type="number" class="form-control" name="chol" placeholder="Enter your cholesterol level" required>
+                <small class="form-text text-muted">Enter your total cholesterol level in mg/dl. If unsure, consult your most recent test result.</small>
+            </div>
+
+
+            <!-- Fasting Blood Sugar -->
+            <div class="mb-3">
+                <label for="fbs">Is your fasting blood sugar higher than 120 mg/dl?</label>
+                <select class="form-select" name="fbs" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+                <small class="form-text text-muted">Select "Yes" if your blood sugar level, measured after fasting for at least 8 hours, is higher than 120 mg/dl. If unsure, consult your most recent blood test.</small>
+            </div>
+
+
+            <!-- Exercise-Induced Angina -->
+           <div class="mb-3">
+                <label for="exang">Do you experience chest pain during exercise?</label>
+                <select class="form-select" name="exang" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+                <small class="form-text text-muted">Select "Yes" if you experience chest pain during physical activity, otherwise select "No."</small>
+            </div>
+
+            <!-- Oldpeak -->
+            <div class="mb-3">
+                <label for="oldpeak">Difference in heart activity during exercise vs rest (Oldpeak)</label>
+                <input type="number" class="form-control" name="oldpeak" placeholder="Enter value from heart stress test" required>
+                <small class="form-text text-muted">Enter the difference in your heart's activity during exercise compared to rest (ST depression). If you're unsure, consult your doctor.</small>
+            </div>
+
+
+            <!-- Slope of Stress Test -->
+            <div class="mb-3">
+                <label for="slope">Heart Stress Test Slope</label>
+                <select class="form-select" name="slope" required>
+                    <option value="1">Increasing</option>
+                    <option value="2">Flat</option>
+                    <option value="3">Decreasing</option>
+                </select>
+                <small class="form-text text-muted">Select how your heart's activity changed during your stress test. If you're unsure or haven't taken the test, please consult your doctor.</small>
+            </div>
+
+            <!-- Number of Major Vessels -->
+            <div class="mb-3">
+                <label for="ca">Number of major vessels affected</label>
+                <select class="form-select" name="ca" required>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <small class="form-text text-muted">Select the number of major blood vessels blocked or affected (as determined by a heart test like an angiogram). If unsure, consult your doctor.</small>
+            </div>
+
+
+            <!-- Thalassemia Condition -->
+            <div class="mb-3">
+                <label for="thal">Thalassemia Condition</label>
+                <select class="form-select" name="thal" required>
+                    <option value="1">No issue</option>
+                    <option value="2">Fixed defect (a permanent heart defect)</option>
+                    <option value="3">Reversible defect (a defect that can be treated)</option>
+                </select>
+                <small class="form-text text-muted">Select your condition related to thalassemia, if known. If you haven't been diagnosed, select 'No issue.'</small>
+            </div>
+
+
+            <button type="button" class="btn btn-primary" onclick="submitForm('heart-disease-form')">Submit</button>
+        </form>
+    </div>
+
+    <!-- Diabetes Form -->
+    <div id="diabetes_form" style="display: none;">
+        <h2>Diabetes Prediction</h2>
+        <form id="diabetes-form">
+            <input type="hidden" name="prediction_type" value="diabetes">
+
+            <!-- Pregnancies -->
+            <div class="mb-3">
+                <label for="Pregnancies">Number of Pregnancies</label>
+                <input type="number" class="form-control" name="Pregnancies" placeholder="Enter number of pregnancies" required>
+                <small class="form-text text-muted">If you have never been pregnant or are male, please enter '0'.</small>
+            </div>
+
+
+            <!-- Glucose Level -->
+            <div class="mb-3">
+                <label for="Glucose">Glucose Level</label>
+                <input type="number" class="form-control" name="Glucose" placeholder="Enter your glucose level" required>
+                <small class="form-text text-muted">Please enter your fasting blood sugar level (e.g., 85).</small>
+            </div>
+
+
+            <!-- Blood Pressure -->
+            <div class="mb-3">
+                <label for="BloodPressure">Blood Pressure</label>
+                <input type="number" class="form-control" name="BloodPressure" placeholder="Enter your average blood pressure" required>
+                <small class="form-text text-muted">Please enter your systolic blood pressure (e.g., 120). If unsure, consult your last health checkup.</small>
+            </div>
+
+
+            <!-- BMI -->
+            <div class="mb-3">
+                <label for="BMI">Body Mass Index (BMI)</label>
+                <input type="number" class="form-control" name="BMI" placeholder="Enter your BMI" required>
+                <small class="form-text text-muted">If you know your BMI, please enter it (e.g., 25.4). If you're unsure, you can calculate it using your weight and height.</small>
+            </div>
+
+
+            <!-- Diabetes Pedigree Function -->
+            <div class="mb-3">
+                <label for="DiabetesPedigreeFunction">Do you have a family history of diabetes (such as parents or siblings with diabetes)?</label>
+                <select class="form-select" name="DiabetesPedigreeFunction" required>
+                    <option value="0.65">Yes</option>
+                    <option value="0.2">No</option>
+                </select>
+            </div>
+
+
+            <!-- Age -->
+            <div class="mb-3">
+                <label for="Age">Age</label>
+                <input type="number" class="form-control" name="Age" required>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="submitForm('diabetes-form')">Submit</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal for showing the result -->
+<div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="resultModalLabel">Prediction Result</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="resultBody">
+                <!-- Result will be shown here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Show the correct form based on selection
+function showForm() {
+    var predictionType = document.getElementById('prediction_type').value;
+    document.getElementById('heart_form').style.display = predictionType === 'heart' ? 'block' : 'none';
+    document.getElementById('diabetes_form').style.display = predictionType === 'diabetes' ? 'block' : 'none';
+}
+
+// Submit the form data via AJAX and show result in a modal
+function submitForm(formId) {
+    var formData = $('#' + formId).serialize();
+    $.ajax({
+        type: 'POST',
+        url: '/predict',
+        data: formData,
+        success: function(response) {
+            $('#resultBody').html(response.result + " Prediction: " + response.prediction);
+            $('#resultModal').modal('show');
+        },
+        error: function() {
+            alert('Error occurred while making the prediction.');
+        }
+    });
+}
+</script>
+
+</body>
+</html>
