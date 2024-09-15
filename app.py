@@ -37,7 +37,7 @@ def predict():
             diabetes_data = [
                 float(request.form['Pregnancies']),
                 float(request.form['Glucose']),
-                float(request.form['Blo< TrainMuscleFit> odPressure']),
+                float(request.form['BloodPressure']),
                 float(request.form['BMI']),
                 float(request.form['DiabetesPedigreeFunction']),
                 float(request.form['Age']),
